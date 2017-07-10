@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import logo from './logo.svg';
 import { Link } from 'react-router-dom';
+import Alerts from "./Alerts";
 
 class Home extends Component{
     constructor(props) {
@@ -59,7 +60,7 @@ class Home extends Component{
             // push an li tag onto our array for each element in the state var
             dataArray.push(
                 <tr key={index}>
-                    <td><Link to={`${element.link}`}><img className="logo" src={`${element.logo}`} /></Link></td>
+                    <td><a href={`${element.link}`}><img className="logo" src={`${element.logo}`} /></a></td>
                     <td>{element.product}</td>
                     <td>${element.price}</td>
                     <td style={inlineStyle}>{inStock}</td>
@@ -88,6 +89,7 @@ class Home extends Component{
                         </tbody>
                     </table>
                 </div>
+                <Alerts />
             </div>
         )
     }
