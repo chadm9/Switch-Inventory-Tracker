@@ -26,28 +26,59 @@ router.post('/manageAlerts', (req,res)=>{
 
     console.log(email, phoneNumber, action);
 
-    if(action === 'new'){
-        connection.query('INSERT INTO users (email, phone) VALUES (?, ?)', [email,phoneNumber], (error, results)=>{
-            if (error) throw error;
-            connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (error2, results2)=>{
-                if (error2) throw error2;
-                res.json(results2);
-            })
-        })
-    }else if(action === 'check'){
-        connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (error, results)=>{
-            if (error) throw error;
-            res.json(results);
-        })
-    }else if(action === 'delete'){
-        connection.query('UPDATE users SET status = "Inactive" WHERE email='+`"${email}"` + 'AND phone=' + `"${phoneNumber}"`+';', (error, results)=>{
-            if (error) throw error;
-            connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (error2, results2)=>{
-                if (error2) throw error2;
-                res.json(results2);
-            })
-        })
-    }
+
+
+    connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (error, results)=>{
+        if (error) {
+            throw error;
+        }else if(results[0] !== undefined){
+            if(action === 'new'){
+                if(results[0].status === 'Active'){
+                    res.json(results)
+                }else{
+                    connection.query('UPDATE users SET status = "Pending" WHERE email='+`"${email}"` + 'AND phone=' + `"${phoneNumber}"`+';', (err1, res1)=>{
+                        if (err1) throw err1;
+                        connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (err2, res2)=>{
+                            if (err2) throw err2;
+                            console.log(res2)
+                            res.json(res2);
+                        })
+                    })
+                }
+            }else if(action === 'check'){
+                console.log(results[0]);
+                res.json(results);
+            }else if(action === 'delete'){
+                connection.query('UPDATE users SET status = "Inactive" WHERE email='+`"${email}"` + 'AND phone=' + `"${phoneNumber}"`+';', (err1, res1)=>{
+                    if (err1) throw err1;
+                    connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (err2, res2)=>{
+                        if (err2) throw err2;
+                        res.json(res2);
+                    })
+                })
+            }
+        }else{
+            if(action === 'new'){
+                connection.query('INSERT INTO users (email, phone, status) VALUES (?, ?, ?)', [email,phoneNumber, 'Pending'], (err1, res1)=>{
+                    if (err1) throw err1;
+                    connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (err2, res2)=>{
+                        if (err2) throw err2;
+                        res.json(res2);
+                    })
+                })
+            }else{
+                connection.query('INSERT INTO users (email, phone, status) VALUES (?, ?, ?)', [email,phoneNumber, 'Inactive'], (err1, res1)=>{
+                    if (err1) throw err1;
+                    connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (err2, res2)=>{
+                        if (err2) throw err2;
+                        res.json(res2);
+                    })
+                })
+            }
+        }
+    })
+
+
 
 
     // res.json({msg:"test"})
