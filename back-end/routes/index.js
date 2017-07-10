@@ -19,4 +19,38 @@ router.get('/getInventoryData', function(req, res, next) {
     })
 });
 
+router.post('/manageAlerts', (req,res)=>{
+    var email = req.body.emailAddress;
+    var phoneNumber = req.body.phoneNumber;
+    var action = req.body.action;
+
+    console.log(email, phoneNumber, action);
+
+    if(action === 'new'){
+        connection.query('INSERT INTO users (email, phone) VALUES (?, ?)', [email,phoneNumber], (error, results)=>{
+            if (error) throw error;
+            connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (error2, results2)=>{
+                if (error2) throw error2;
+                res.json(results2);
+            })
+        })
+    }else if(action === 'check'){
+        connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (error, results)=>{
+            if (error) throw error;
+            res.json(results);
+        })
+    }else if(action === 'delete'){
+        connection.query('UPDATE users SET status = "Inactive" WHERE email='+`"${email}"` + 'AND phone=' + `"${phoneNumber}"`+';', (error, results)=>{
+            if (error) throw error;
+            connection.query('SELECT * FROM users WHERE email=' +`"${email}"` +' AND phone=' +`"${phoneNumber}"`+';', (error2, results2)=>{
+                if (error2) throw error2;
+                res.json(results2);
+            })
+        })
+    }
+
+
+    // res.json({msg:"test"})
+});
+
 module.exports = router;

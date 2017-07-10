@@ -19,8 +19,9 @@ class Alerts extends Component {
 
     manageAlerts(event){
         event.preventDefault();
-        var newTask = document.getElementById('new-task').value;
-        var newTaskDate = document.getElementById('new-task-date').value;
+        var emailAddress = document.getElementById('email-input').value;
+        var phoneNumber = document.getElementById('phone-input').value;
+        var action = document.getElementById('manage-action').value;
         // console.log(newTask)
         // console.log(newTaskDate)
         // THis is a POST request, so we can't use $.getJSON (only does get)
@@ -35,19 +36,47 @@ class Alerts extends Component {
             method: "POST",
             url: "http://localhost:3000/manageAlerts",
             data: {
-                taskName: newTask,
-                taskDate: newTaskDate
+                emailAddress: emailAddress,
+                phoneNumber: phoneNumber,
+                action: action
             }
         }).done((serverResponse)=>{
             this.setState({
                 alertInfo: serverResponse
-            })
+
+            });
+            console.log(serverResponse);
+
         })
     }
 
 
 
     render() {
+        console.log(this.state);
+
+
+
+        if(this.state.alertInfo[0] !== undefined){
+            if(this.state.alertInfo[0].status === 'Pending'){
+                var userPhoneNumber = this.state.alertInfo[0].phone;
+                var userEmailAddress = this.state.alertInfo[0].email;
+                var msg = 'Stock alerts for email: ' + userEmailAddress +
+                    ', and phone: ' + userPhoneNumber + ', are pending activation.'
+            }else if(this.state.alertInfo[0].status === 'Active'){
+                var userPhoneNumber = this.state.alertInfo[0].phone;
+                var userEmailAddress = this.state.alertInfo[0].email;
+                var msg = 'Stock alerts for email: ' + userEmailAddress +
+                    ', and phone: ' + userPhoneNumber + ', are active.'
+            }else if(this.state.alertInfo[0].status === 'Inactive'){
+                var userPhoneNumber = this.state.alertInfo[0].phone;
+                var userEmailAddress = this.state.alertInfo[0].email;
+                var msg = 'Stock alerts for email: ' + userEmailAddress +
+                    ', and phone: ' + userPhoneNumber + ', have been deactivated.'
+            }
+
+
+        }
 
         return(
 
@@ -59,17 +88,19 @@ class Alerts extends Component {
                     </div>
                     <div>
                         <label>Phone Number</label>
-                        <input className="" type="tel" id="telephone-input" placeholder="phone number"/>
+                        <input className="" type="tel" id="phone-input" placeholder="phone number"/>
                     </div>
                     <div>
                         <label>Action</label>
-                        <select id="manage-alerts-option">
-                            <option value="volvo">Create New Stock Alert</option>
-                            <option value="saab">Cancel Existing Stock Alert</option>
+                        <select id="manage-action">
+                            <option value="new">Create New Stock Alert</option>
+                            <option value="delete">Cancel Existing Stock Alert</option>
+                            <option value="check">Check Status of Existing Stock Alert</option>
                         </select>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+                <div><p>{msg}</p></div>
             </div>
 
         )

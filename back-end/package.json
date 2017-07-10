@@ -13,6 +13,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.8.1",
     "mysql": "^2.13.0",
+    "nodemailer": "^4.0.1",
     "phantomjs": "^2.1.7",
     "serve-favicon": "~2.4.2"
   }
