@@ -10,6 +10,8 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
+
+
 // Setup a route to handle React's first request
 router.get('/getInventoryData', function(req, res, next) {
     connection.query('SELECT * FROM retailers', (error, results)=>{
