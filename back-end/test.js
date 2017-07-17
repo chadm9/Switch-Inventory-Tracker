@@ -12,15 +12,53 @@ var timeStamp = null;
 var resultString = null;
 var readSuccess = null;
 
-casper.start('https://www.target.com/p/nintendo-switch-with-gray-joy-con/-/A-52052007', function() {
+// currentURL = 'https://www.target.com/p/xbox-one-s-1tb-battlefield-153-1-special-edition-bundle/-/A-51353852#lnk=sametab'
+currentURL = 'https://www.target.com/p/nintendo-switch-with-gray-joy-con/-/A-52052007'
+casper.start(currentURL, function() {
     this.echo(this.getTitle());
-    if (this.exists('span.h-text-lowercase')) {
-        this.echo(this.getHTML('.price'));
-        this.echo(this.getHTML('.js-shipping-block'));
-        //this.echo(this.getHTML('span.h-text-lowercase'));
+    if (this.exists('p.card--title > span.h-text-orangeDark')) {
+        //this.echo('success');
+        resultString = this.getHTML('p.card--title > span.h-text-orangeDark')
+        //this.echo(resultString)
+
+
+        if(resultString === 'temporarily out of stock'){
+            inStock = false
+            readSuccess = true
+            console.log('In Stock: ' + inStock);
+            console.log('Successfully Read: ' + readSuccess);
+        }else{
+            inStock = null
+            readSuccess = false
+            console.log('In Stock: ' + inStock);
+            console.log('Successfully Read: ' + readSuccess);
+        }
+
+    }else if (this.exists('p.card--title > span.h-text-lowercase')) {
+        //this.echo('success');
+        resultString = this.getHTML('p.card--title > span.h-text-lowercase')
+        //this.echo(resultString.slice(0,13))
+
+
+        if(resultString.slice(0,13) === ' Shipping to '){
+            inStock = true
+            readSuccess = true
+            console.log('In Stock: ' + inStock);
+            console.log('Successfully Read: ' + readSuccess);
+        }else{
+            inStock = null
+            readSuccess = false
+            console.log('In Stock: ' + inStock);
+            console.log('Successfully Read: ' + readSuccess);
+        }
 
     }else{
-        this.echo('Not Found')
+
+        //this.echo('Not Found')
+        readSuccess = false;
+        inStock = null
+        console.log('In Stock: ' + inStock);
+        console.log('Successfully Read: ' + readSuccess);
     }
     // this.echo(this.getTitle());
 });
@@ -60,30 +98,58 @@ casper.start('https://www.target.com/p/nintendo-switch-with-gray-joy-con/-/A-520
 //     }
 // });
 
+currentURL = 'http://www.bestbuy.com/site/nintendo-switch-32gb-console-gray-joy-con/5670003.p'
+// currentURL = 'http://www.bestbuy.com/site/microsoft-xbox-one-s-500gb-forza-horizon-3-console-bundle-with-pdp-talon-media-remote/9999281200050000.p?skuId=9999281200050000'
+casper.thenOpen(currentURL, function() {
+    this.echo(this.getTitle());
+    if (this.exists('div[class="cart-button"]')) {
+        resultString = this.getElementAttribute('div[class="cart-button"]', 'data-purchasable')
 
-// casper.thenOpen('http://www.bestbuy.com/site/nintendo-switch-32gb-console-gray-joy-con/5670003.p', function() {
-//     this.echo(this.getTitle());
-//     if (this.exists('div[class="cart-button"]')) {
-//         this.echo(this.getElementAttribute('div[class="cart-button"]', 'data-add-to-cart-message'));
-//         console.log('hello')
-//
-//
-//     }else{
-//         this.echo('not found');
-//     }
-// });
-//
-//
-// casper.thenOpen('http://www.bestbuy.com/site/nintendo-switch-32gb-console-neon-red-neon-blue-joy-con/5670100.p', function() {
-//     this.echo(this.getTitle());
-//     if (this.exists('div[class="cart-button"]')) {
-//         this.echo(this.getElementAttribute('div[class="cart-button"]', 'data-add-to-cart-message'));
-//
-//
-//     }else{
-//         this.echo('not found');
-//     }
-// });
+        if(resultString === 'true'){
+            inStock = true
+            readSuccess = true
+            console.log('In Stock: ' + inStock);
+            console.log('Successfully Read: ' + readSuccess);
+        }else{
+            inStock = false
+            readSuccess = true
+            console.log('In Stock: ' + inStock);
+            console.log('Successfully Read: ' + readSuccess);
+        }
+
+    }else{
+        readSuccess = false;
+        inStock = null
+        console.log('In Stock: ' + inStock);
+        console.log('Successfully Read: ' + readSuccess);
+    }
+});
+
+currentURL = 'http://www.bestbuy.com/site/nintendo-switch-32gb-console-neon-red-neon-blue-joy-con/5670100.p'
+casper.thenOpen(currentURL, function() {
+    this.echo(this.getTitle());
+    if (this.exists('div[class="cart-button"]')) {
+        resultString = this.getElementAttribute('div[class="cart-button"]', 'data-purchasable')
+
+        if(resultString === 'true'){
+            inStock = true
+            readSuccess = true
+            console.log('In Stock: ' + inStock);
+            console.log('Successfully Read: ' + readSuccess);
+        }else{
+            inStock = false
+            readSuccess = true
+            console.log('In Stock: ' + inStock);
+            console.log('Successfully Read: ' + readSuccess);
+        }
+
+    }else{
+        readSuccess = false;
+        inStock = null
+        console.log('In Stock: ' + inStock);
+        console.log('Successfully Read: ' + readSuccess);
+    }
+});
 
 currentURL = 'http://www.toysrus.com/product/index.jsp?productId=119513636&cp=2255974.119659196&fg=Category&fg=Price&fv=2254197&fv=00010001~-~09999999&ff=Taxonomy&ff=StorePrice&fd=%24100.00+and+up&parentPage=search'
 casper.thenOpen(currentURL, function() {
@@ -117,8 +183,8 @@ casper.thenOpen(currentURL, function() {
 
 });
 
-// currentURL = 'http://www.toysrus.com/product/index.jsp?productId=119513666&cp=2255974.119659196&fg=Category&fg=Price&fv=2254197&fv=00010001~-~09999999&ff=Taxonomy&ff=StorePrice&fd=%24100.00+and+up&parentPage=search'
-currentURL = 'http://www.toysrus.com/product/index.jsp?productId=111913616&cp=2255974.22197846.22198136&parentPage=family'
+currentURL = 'http://www.toysrus.com/product/index.jsp?productId=119513666&cp=2255974.119659196&fg=Category&fg=Price&fv=2254197&fv=00010001~-~09999999&ff=Taxonomy&ff=StorePrice&fd=%24100.00+and+up&parentPage=search'
+// currentURL = 'http://www.toysrus.com/product/index.jsp?productId=111913616&cp=2255974.22197846.22198136&parentPage=family'
 casper.thenOpen(currentURL, function() {
     this.echo(this.getTitle());
     if (this.exists('div[id="productOOS"]')) {
