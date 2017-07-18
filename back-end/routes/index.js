@@ -86,4 +86,15 @@ router.post('/manageAlerts', (req,res)=>{
     // res.json({msg:"test"})
 });
 
+
+router.post('/updateInventoryData', function(req, res) {
+    console.log(req.body);
+    res.json('hello')
+    // connection.query('SELECT * FROM retailers', (error, results)=>{
+    //     if (error) throw error;
+    //     console.log(results);
+    //     res.json(results);
+    // })
+});
+
 module.exports = router;
