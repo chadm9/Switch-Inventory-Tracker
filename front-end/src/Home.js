@@ -35,7 +35,7 @@ class Home extends Component{
     }
 
     loadData(){
-    $.getJSON('http://localhost:3000/getInventoryData', (serverData)=>{
+    $.getJSON('http://localhost:4001/getInventoryData', (serverData)=>{
         // log the JSON response from Express
         console.log(serverData);
         this.setState({

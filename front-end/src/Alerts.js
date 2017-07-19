@@ -34,7 +34,7 @@ class Alerts extends Component {
 
         $.ajax({
             method: "POST",
-            url: "http://localhost:3000/manageAlerts",
+            url: "http://localhost:4001/manageAlerts",
             data: {
                 emailAddress: emailAddress,
                 phoneNumber: null,
