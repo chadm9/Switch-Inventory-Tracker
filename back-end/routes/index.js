@@ -89,6 +89,29 @@ router.post('/manageAlerts', (req,res)=>{
 
 router.post('/updateInventoryData', function(req, res) {
     console.log(req.body);
+
+    var url = req.body.url;
+    var readSuccess = req.body.readSuccess;
+    var inStock = req.body.inStock;
+    var stockUpdate;
+
+
+    if(inStock === 'true'){
+        stockUpdate = 1;
+    }else{
+        stockUpdate = 0;
+    }
+    console.log(url);
+    console.log(readSuccess);
+    console.log(stockUpdate);
+
+    var updateQuery = `UPDATE retailers SET in_stock=${stockUpdate}, updated = NOW() WHERE link='${url}';`;
+    connection.query(updateQuery, (error, results)=>{
+        if(error) throw error;
+        console.log(results)
+
+    });
+
     res.json('hello')
     // connection.query('SELECT * FROM retailers', (error, results)=>{
     //     if (error) throw error;

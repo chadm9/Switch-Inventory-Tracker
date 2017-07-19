@@ -19,18 +19,25 @@ class Home extends Component{
     // compondentDidMount runs AFTER the first render
     componentDidMount() {
         // getJSON request to localhost:3000 ... that's where Express is listening
+
+
+
         $.getJSON('http://localhost:3000/getInventoryData', (serverData)=>{
             // log the JSON response from Express
             console.log(serverData);
             this.setState({
                 inventoryData: serverData
             })
-        });
+        })
+
+
+
         // Update the state... this will cause a re-render
         // this.setState({
         //   theClass: [1,2,3,4]
         // })
     }
+    
 
 
 
@@ -64,6 +71,7 @@ class Home extends Component{
                     <td>{element.product}</td>
                     <td>${element.price}</td>
                     <td style={inlineStyle}>{inStock}</td>
+                    <td>{element.updated}</td>
                 </tr>);
         });
 
@@ -82,6 +90,7 @@ class Home extends Component{
                             <th>Product</th>
                             <th>Price</th>
                             <th>Availability</th>
+                            <th>Last Update</th>
                         </tr>
                         </thead>
                         <tbody>
