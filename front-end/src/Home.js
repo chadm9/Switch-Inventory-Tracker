@@ -13,6 +13,7 @@ class Home extends Component{
         this.state = {
             inventoryData: []
         };
+        this.loadData = this.loadData.bind(this)
         // Make sure addNewTask uses the class "this"
     }
 
@@ -22,13 +23,8 @@ class Home extends Component{
 
 
 
-        $.getJSON('http://localhost:3000/getInventoryData', (serverData)=>{
-            // log the JSON response from Express
-            console.log(serverData);
-            this.setState({
-                inventoryData: serverData
-            })
-        })
+        this.loadData();
+        setInterval(this.loadData, 30000)
 
 
 
@@ -37,7 +33,17 @@ class Home extends Component{
         //   theClass: [1,2,3,4]
         // })
     }
-    
+
+    loadData(){
+    $.getJSON('http://localhost:3000/getInventoryData', (serverData)=>{
+        // log the JSON response from Express
+        console.log(serverData);
+        this.setState({
+            inventoryData: serverData
+        })
+    })
+}
+
 
 
 
@@ -78,19 +84,19 @@ class Home extends Component{
         return(
             <div className="App">
                 <div className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h2>Welcome to React</h2>
+
+                    <h1 className="header">Nintendo Switch Inventory Tracker</h1>
                 </div>
                 <div className="container">
 
                     <table className="table table-bordered">
                         <thead>
                         <tr>
-                            <th>Retailer</th>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Availability</th>
-                            <th>Last Update</th>
+                            <th className="text-center">Retailer</th>
+                            <th className="text-center">Product</th>
+                            <th className="text-center">Price</th>
+                            <th className="text-center">Availability</th>
+                            <th className="text-center">Last Update</th>
                         </tr>
                         </thead>
                         <tbody>

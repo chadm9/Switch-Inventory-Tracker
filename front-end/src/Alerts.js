@@ -20,7 +20,7 @@ class Alerts extends Component {
     manageAlerts(event){
         event.preventDefault();
         var emailAddress = document.getElementById('email-input').value;
-        var phoneNumber = document.getElementById('phone-input').value;
+        //var phoneNumber = document.getElementById('phone-input').value;
         var action = document.getElementById('manage-action').value;
         // console.log(newTask)
         // console.log(newTaskDate)
@@ -37,7 +37,7 @@ class Alerts extends Component {
             url: "http://localhost:3000/manageAlerts",
             data: {
                 emailAddress: emailAddress,
-                phoneNumber: phoneNumber,
+                phoneNumber: null,
                 action: action
             }
         }).done((serverResponse)=>{
@@ -59,20 +59,23 @@ class Alerts extends Component {
 
         if(this.state.alertInfo[0] !== undefined){
             if(this.state.alertInfo[0].status === 'Pending'){
-                var userPhoneNumber = this.state.alertInfo[0].phone;
+                //var userPhoneNumber = this.state.alertInfo[0].phone;
                 var userEmailAddress = this.state.alertInfo[0].email;
-                var msg = 'Stock alerts for email: ' + userEmailAddress +
-                    ', and phone: ' + userPhoneNumber + ', are pending activation.'
+                // var msg = 'Stock alerts for email: ' + userEmailAddress +
+                //     ', and phone: ' + userPhoneNumber + ', are pending activation.'
+                var msg = 'This feature is coming soon!'
             }else if(this.state.alertInfo[0].status === 'Active'){
-                var userPhoneNumber = this.state.alertInfo[0].phone;
+                //var userPhoneNumber = this.state.alertInfo[0].phone;
                 var userEmailAddress = this.state.alertInfo[0].email;
-                var msg = 'Stock alerts for email: ' + userEmailAddress +
-                    ', and phone: ' + userPhoneNumber + ', are active.'
+                // var msg = 'Stock alerts for email: ' + userEmailAddress +
+                //     ', and phone: ' + userPhoneNumber + ', are active.'
+                var msg = 'This feature is coming soon!'
             }else if(this.state.alertInfo[0].status === 'Inactive'){
-                var userPhoneNumber = this.state.alertInfo[0].phone;
+                //var userPhoneNumber = this.state.alertInfo[0].phone;
                 var userEmailAddress = this.state.alertInfo[0].email;
-                var msg = 'Stock alerts for email: ' + userEmailAddress +
-                    ', and phone: ' + userPhoneNumber + ', have been deactivated.'
+                // var msg = 'Stock alerts for email: ' + userEmailAddress +
+                //     ', and phone: ' + userPhoneNumber + ', have been deactivated.'
+                var msg = 'This feature is coming soon!'
             }
 
 
@@ -81,26 +84,23 @@ class Alerts extends Component {
         return(
 
             <div className="inventory-tracker">
+                <h4>Manage Automatic Alerts</h4>
+                <p>Receive an email notification when the Switch becomes available for online purchase.</p>
                 <form onSubmit={this.manageAlerts} >
                     <div>
-                        <label >Email address</label>
-                        <input className="" placeholder="email" type="email" id="email-input"/>
+                        <input className="manage-alerts" placeholder="Email Address" type="email" id="email-input"/>
                     </div>
+
                     <div>
-                        <label>Phone Number</label>
-                        <input className="" type="tel" id="phone-input" placeholder="phone number"/>
-                    </div>
-                    <div>
-                        <label>Action</label>
-                        <select id="manage-action">
+                        <select className="manage-alerts" id="manage-action">
                             <option value="new">Create New Stock Alert</option>
                             <option value="delete">Cancel Existing Stock Alert</option>
                             <option value="check">Check Status of Existing Stock Alert</option>
                         </select>
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button id='alert-button' type="submit" className="btn btn-primary">Submit</button>
                 </form>
-                <div><p>{msg}</p></div>
+                <div><p id="alert-message">{msg}<br/></p></div>
             </div>
 
         )

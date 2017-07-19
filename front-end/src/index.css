@@ -7,3 +7,23 @@ body {
   max-height: 50px;
 
 }
+.data{
+  text-align: center !important;
+}
+
+.manage-alerts{
+  margin-bottom: 3px;
+
+}
+
+.header{
+  font-family: Calibri, Arial, Serif;
+}
+
+#alert-button{
+  margin-bottom: 5px;
+}
+
+#alert-message{
+  margin: 5px;
+}
