@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+var config = require('../config/config');
 var connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'x',
-    password: 'x',
-    database: 'switch_stock'
+    host: config.host,
+    user: config.user,
+    password: config.password,
+    database: config.database
 });
 
 connection.connect();

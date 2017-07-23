@@ -4,8 +4,11 @@ body {
   font-family: sans-serif;
 }
 .logo{
-  max-height: 50px;
-
+  /*max-height: 50px;*/
+  /*height: 30%;*/
+  width: 50px;
+  /*max-width: 50px;*/
+  /*width: 30%;*/
 }
 .data{
   text-align: center !important;
@@ -26,4 +29,23 @@ body {
 
 #alert-message{
   margin: 5px;
+}
+
+.container{
+  width: 100% !important;
+}
+#infoTable{
+  max-width: 100% !important;
+}
+
+@media only screen and (max-width: 450px) {
+  .table-data{
+    font-size: 10px;
+  }
+  .header{
+    font-size: 24px;
+  }
+  .inventory-tracker{
+    font-size: 10px;
+  }
 }

@@ -87,19 +87,19 @@ class Home extends Component{
 
                     <h1 className="header">Nintendo Switch Inventory Tracker</h1>
                 </div>
-                <div className="container">
+                <div className="container col-sm-12 col-xs-12 col-md-12">
 
-                    <table className="table table-bordered">
+                    <table id='infoTable' className="table table-bordered">
                         <thead>
                         <tr>
-                            <th className="text-center">Retailer</th>
-                            <th className="text-center">Product</th>
-                            <th className="text-center">Price</th>
-                            <th className="text-center">Availability</th>
-                            <th className="text-center">Last Update</th>
+                            <th className="text-center table-data">Retailer</th>
+                            <th className="text-center table-data">Product</th>
+                            <th className="text-center table-data">Price</th>
+                            <th className="text-center table-data">Availability</th>
+                            <th className="text-center table-data">Last Update (UTC)</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="table-data">
                         {dataArray}
                         </tbody>
                     </table>
