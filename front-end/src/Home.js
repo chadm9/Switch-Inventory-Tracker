@@ -24,7 +24,7 @@ class Home extends Component{
 
 
         this.loadData();
-        setInterval(this.loadData, 30000)
+        setInterval(this.loadData, 60000)
 
 
 

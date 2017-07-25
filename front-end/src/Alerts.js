@@ -29,7 +29,7 @@ class Alerts extends Component {
         // where to send it (url), and how to send it (method)
         // $.ajax is a promise which has a "done" method that will run when
         // ajax is back. It gets a param of whatever JSON was returned by the API request
-        // Inside that funciton, we update REact state (theClass), which causes
+        // Inside that funciton, we update React state (theClass), which causes
         // a re-render, which updates the list because we are mapping through this.state.theClass.
 
         $.ajax({
@@ -61,23 +61,22 @@ class Alerts extends Component {
             if(this.state.alertInfo[0].status === 'Pending'){
                 //var userPhoneNumber = this.state.alertInfo[0].phone;
                 var userEmailAddress = this.state.alertInfo[0].email;
-                // var msg = 'Stock alerts for email: ' + userEmailAddress +
-                //     ', and phone: ' + userPhoneNumber + ', are pending activation.'
-                var msg = 'This feature is coming soon!'
-            }else if(this.state.alertInfo[0].status === 'Active'){
-                //var userPhoneNumber = this.state.alertInfo[0].phone;
-                var userEmailAddress = this.state.alertInfo[0].email;
-                // var msg = 'Stock alerts for email: ' + userEmailAddress +
-                //     ', and phone: ' + userPhoneNumber + ', are active.'
-                var msg = 'This feature is coming soon!'
+                var msg = 'A stock alert activation link has been sent to  ' + userEmailAddress +
+                '.  Please follow this link to complete activation.';
+
             }else if(this.state.alertInfo[0].status === 'Inactive'){
                 //var userPhoneNumber = this.state.alertInfo[0].phone;
                 var userEmailAddress = this.state.alertInfo[0].email;
-                // var msg = 'Stock alerts for email: ' + userEmailAddress +
-                //     ', and phone: ' + userPhoneNumber + ', have been deactivated.'
-                var msg = 'This feature is coming soon!'
-            }
+                var msg = 'Stock alerts for ' + userEmailAddress +
+                    ' have been deactivated.'
 
+            }else if(this.state.alertInfo[0].status === 'Active'){
+                //var userPhoneNumber = this.state.alertInfo[0].phone;
+                var userEmailAddress = this.state.alertInfo[0].email;
+                var msg = 'Stock alerts for ' + userEmailAddress +
+                    ' have been activated.'
+
+            }
 
         }
 
@@ -95,7 +94,7 @@ class Alerts extends Component {
                         <select className="manage-alerts" id="manage-action">
                             <option value="new">Create New Stock Alert</option>
                             <option value="delete">Cancel Existing Stock Alert</option>
-                            <option value="check">Check Status of Existing Stock Alert</option>
+
                         </select>
                     </div>
                     <button id='alert-button' type="submit" className="btn btn-primary">Submit</button>
