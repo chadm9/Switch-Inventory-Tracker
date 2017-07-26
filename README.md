@@ -7,6 +7,8 @@ to find Nintendo Switch console.  The app scrapes the online purchase availabili
 online video game retailers including Walmart, Target, GameStop, Best Buy, and Toys R Us.  Users who sign up for
 automatic alerts will receive an instant email notification containing a purchase link when the Switch becomes available for online 
 purchase.  Sign up for alerts today to get help securing your Switch!
+<br><br>
+<img src='./switch-app-pic.png'>
 
 ## Author: Chad McKee
 * <a href="https://github.com/chadm9">GitHub</a>
